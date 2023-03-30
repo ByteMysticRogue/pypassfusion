@@ -16,7 +16,7 @@ I developed this password generating program using Python to provide users with 
 
 **Installation**
 
-You can install this program by opening your Terminal and typing in “pip install pypassfusion or pip3 install pypassfusion“.
+You can install this program by opening your Terminal and typing in “`pip install pypassfusion` or `pip3 install pypassfusion`“.
 
 After installation is completed, you can start using it by simply typing in “pyfusion” and hitting enter.
 
