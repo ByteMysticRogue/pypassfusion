@@ -1,5 +1,5 @@
 name = "PyPassFusion"
 name_desc = "PyPassFusion"
-version = "1.5.1.4"
+version = "1.5.1.5"
 description = "Command line tool to generate secure password and save it"
 url = "https://github.com/amirhosseinbonyadi/PyPassFusion"
