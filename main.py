@@ -10,7 +10,7 @@ import tkinter as tk
 from tkinter import filedialog
 from .menu import main_menu
 from .menu import sub_menu
-
+import sys
 
 def get_password_chars():
     chars = ''
@@ -119,119 +119,123 @@ def generate_password(length, chars, nums, symbols):
 
 
 def main():
-    password = ""
-    while True:
-        main_menu()
-        choice = int(input("Enter your choice: "))
+    try:
+        password = ""
+        while True:
+            main_menu()
+            choice = int(input("Enter your choice: "))
 
-        if choice == 1:
-            pass_length = int(input("Please enter a length for your password: "))
-            chars = get_password_chars()
-            nums = get_password_nums()
-            symbols = get_password_symbols()
-            password = generate_password(pass_length, chars, nums, symbols)
+            if choice == 1:
+                pass_length = int(input("Please enter a length for your password: "))
+                chars = get_password_chars()
+                nums = get_password_nums()
+                symbols = get_password_symbols()
+                password = generate_password(pass_length, chars, nums, symbols)
 
-            print("\n================================")
-            print("Password generated successfully!")
-            print("================================")
-        elif choice == 2:
-            added_pass = ''
-            while True:
-                sub_menu()
-                sub_choice = int(input("Enter your choice: "))
+                print("\n================================")
+                print("Password generated successfully!")
+                print("================================")
+            elif choice == 2:
+                added_pass = ''
+                while True:
+                    sub_menu()
+                    sub_choice = int(input("Enter your choice: "))
 
-                if sub_choice == 1:
-                    while True:
-                        user_pass = input("Provide Your password: ")
-                        if user_pass:
-                            added_pass += user_pass
+                    if sub_choice == 1:
+                        while True:
+                            user_pass = input("Provide Your password: ")
+                            if user_pass:
+                                added_pass += user_pass
+                                print("\n================================")
+                                print("Password added successfully!")
+                                print("================================")
+                                break
+                            else:
+                                print("The password field can't be empty!")
+                                continue
+                    elif sub_choice == 2:
+                        if added_pass:
                             print("\n================================")
-                            print("Password added successfully!")
+                            print(f"Added password is: {added_pass}")
                             print("================================")
-                            break
                         else:
-                            print("The password field can't be empty!")
-                            continue
-                elif sub_choice == 2:
-                    if added_pass:
-                        print("\n================================")
-                        print(f"Added password is: {added_pass}")
-                        print("================================")
-                    else:
-                        print("\n================================")
-                        print("No Password has been added Yet!")
-                        print("================================")
-                elif sub_choice == 3:
-                    if added_pass:
-                        root = tk.Tk()
-                        root.withdraw()
-                        root.wm_attributes("-topmost", True)
+                            print("\n================================")
+                            print("No Password has been added Yet!")
+                            print("================================")
+                    elif sub_choice == 3:
+                        if added_pass:
+                            root = tk.Tk()
+                            root.withdraw()
+                            root.wm_attributes("-topmost", True)
 
-                        file_path = filedialog.asksaveasfilename(initialdir="/", title="Save Password File",
-                                                                    filetypes=[("Text Files", "*.txt")])
+                            file_path = filedialog.asksaveasfilename(initialdir="/", title="Save Password File",
+                                                                        filetypes=[("Text Files", "*.txt")])
 
-                        if not file_path.endswith(".txt"):
-                            file_path += ".txt"
+                            if not file_path.endswith(".txt"):
+                                file_path += ".txt"
 
-                        if os.path.exists(file_path):
-                            with open(file_path, "a") as f:
-                                title = input("Enter a title for the password: ")
-                                f.write(f"{title}: {added_pass}\n")
-                                print("\n================================")
-                                print("Password saved successfully!")
-                                print("================================")
+                            if os.path.exists(file_path):
+                                with open(file_path, "a") as f:
+                                    title = input("Enter a title for the password: ")
+                                    f.write(f"{title}: {added_pass}\n")
+                                    print("\n================================")
+                                    print("Password saved successfully!")
+                                    print("================================")
+                            else:
+                                with open(file_path, "w") as f:
+                                    title = input("Enter a title for the password: ")
+                                    f.write(f"{title}: {added_pass}\n")
+                                    print("\n================================")
+                                    print("Password saved successfully!")
+                                    print("================================")
                         else:
-                            with open(file_path, "w") as f:
-                                title = input("Enter a title for the password: ")
-                                f.write(f"{title}: {added_pass}\n")
-                                print("\n================================")
-                                print("Password saved successfully!")
-                                print("================================")
-                    else:
-                        print("\n================================")
-                        print("No Password has been added to save yet!")
-                        print("================================")
-                elif sub_choice == 4:
-                    break
-        elif choice == 3:
-            if password:
-                print("\n================================")
-                print("Generated password: ", password)
-                print("================================")
-            else:
-                print("\n================================")
-                print("No password has been generated yet!")
-                print("================================")
-
-        elif choice == 4:
-            if password:
-                root = tk.Tk()
-                root.withdraw()
-                root.wm_attributes("-topmost", True)
-
-                file_path = filedialog.asksaveasfilename(initialdir="/", title="Save Password File", filetypes=[("Text Files", "*.txt")])
-
-                if not file_path.endswith(".txt"):
-                    file_path += ".txt"
-
-                if os.path.exists(file_path):
-                    with open(file_path, "a") as f:
-                        title = input("Enter a title for the password: ")
-                        f.write(f"{title}: {password}\n")
-                        print("\n================================")
-                        print("Password saved successfully!")
-                        print("================================")
+                            print("\n================================")
+                            print("No Password has been added to save yet!")
+                            print("================================")
+                    elif sub_choice == 4:
+                        break
+            elif choice == 3:
+                if password:
+                    print("\n================================")
+                    print("Generated password: ", password)
+                    print("================================")
                 else:
-                    with open(file_path, "w") as f:
-                        title = input("Enter a title for the password: ")
-                        f.write(f"{title}: {password}\n")
-                        print("\n================================")
-                        print("Password saved successfully!")
-                        print("================================")
-            else:
-                print("\n================================")
-                print("No Password has been generated to save yet!")
-                print("================================")
-        elif choice == 5:
-            print("Thanks for using the app!\u2764\ufe0f")
-            break
+                    print("\n================================")
+                    print("No password has been generated yet!")
+                    print("================================")
+
+            elif choice == 4:
+                if password:
+                    root = tk.Tk()
+                    root.withdraw()
+                    root.wm_attributes("-topmost", True)
+
+                    file_path = filedialog.asksaveasfilename(initialdir="/", title="Save Password File", filetypes=[("Text Files", "*.txt")])
+
+                    if not file_path.endswith(".txt"):
+                        file_path += ".txt"
+
+                    if os.path.exists(file_path):
+                        with open(file_path, "a") as f:
+                            title = input("Enter a title for the password: ")
+                            f.write(f"{title}: {password}\n")
+                            print("\n================================")
+                            print("Password saved successfully!")
+                            print("================================")
+                    else:
+                        with open(file_path, "w") as f:
+                            title = input("Enter a title for the password: ")
+                            f.write(f"{title}: {password}\n")
+                            print("\n================================")
+                            print("Password saved successfully!")
+                            print("================================")
+                else:
+                    print("\n================================")
+                    print("No Password has been generated to save yet!")
+                    print("================================")
+            elif choice == 5:
+                print("Thanks for using the app!\u2764\ufe0f")
+                break
+    except KeyboardInterrupt:
+        print("\nExiting due to keyboard interrupt")
+        sys.exit()
