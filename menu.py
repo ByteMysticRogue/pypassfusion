@@ -1,5 +1,3 @@
-import time
-
 def main_menu():
     print("\n=== PyPassFusion MENU ===")
     print("[1]. Generate a password")
